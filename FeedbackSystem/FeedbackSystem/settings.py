@@ -125,10 +125,11 @@ WSGI_APPLICATION = 'FeedbackSystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'newFeedbackSystem',
+        'NAME': 'FeedbackSystem',
         'USER': 'shaz',
         'PASSWORD': 'shaz',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'PORT': 3306
     }
 }
 
