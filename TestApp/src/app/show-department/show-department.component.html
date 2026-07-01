@@ -1,0 +1,65 @@
+<app-menu></app-menu>
+
+<h1>Department Details</h1>
+
+<div class="data-container">
+
+<mat-form-field appearance="standard">
+  <mat-label>Global Search (case sensitive)</mat-label>
+  <input matInput (keyup)="applyFilter()" placeholder="Ex. MedPlus" #input [(ngModel)]="filterData">
+</mat-form-field>
+
+<div class="mat-elevation-z8" class="displaydata">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Department Name -->
+    <ng-container matColumnDef="department_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.department_name}} </td>
+    </ng-container>
+
+    <!-- Department Code -->
+    <ng-container matColumnDef="department_code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Code </th>
+      <td mat-cell *matCellDef="let row"> {{row.department_code}} </td>
+    </ng-container>
+
+    <!-- Department status column -->
+    <ng-container matColumnDef="department_status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let row"> {{userStatus.status[0][row.is_active?'active':'inactive']}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button  color="primary" (click)="editDepartmentDetails(row)" *ngIf="userRole == 'admin'">
+      <mat-icon>edit</mat-icon>
+      Edit
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button mat-raised-button  color="warn" 
+        (click)="deleteDepartment(row.department_code, 'Delete', 'Are You Sure Want to Delete?')"
+        *ngIf="userRole == 'admin'">
+      <mat-icon>delete_fill</mat-icon> 
+      Delete
+      </button>
+      </td>
+    </ng-container>
+    
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+</div>
+
+

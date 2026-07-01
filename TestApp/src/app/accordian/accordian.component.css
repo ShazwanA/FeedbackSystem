@@ -1,0 +1,17 @@
+.accordion{
+    width: 100%;
+}
+
+.odd{
+    color: white;
+    background-color: teal;
+}
+
+.even{
+    color:black;
+    background-color: rgb(5, 68, 68);
+}
+
+mat-expansion-panel{
+    margin-top: 0.7rem;
+}

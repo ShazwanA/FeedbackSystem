@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="header">
+    <mat-toolbar color="accent">
+    <span>Add new class/course</span>
+    <span class="example-spacer"></span>
+    <mat-icon>note_add</mat-icon>
+        
+    </mat-toolbar>
+  </div>
+<br><br>
+<div clas="content-box">
+
+    <form class="example-form" [formGroup]="addCourseModel">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Course Code</mat-label>
+        <input matInput formControlName="course_code" name="coursecode" maxlength="10" [readonly] = "isReadOnly">
+      </mat-form-field>
+
+      <br>
+      
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Course Name</mat-label>
+        <input matInput placeholder="B. Tech, BCA" formControlName="course_name" type="email" name="coursename">
+      </mat-form-field>
+
+      <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate Course</mat-checkbox>
+
+      <!-- <div class="example-button-row">
+        <button mat-raised-button class="warn" (click)="addCourse()">{{updateBtn}}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button mat-dialog-close color="warn">Close</button>
+      </div> -->
+    </form>
+    </div>
+    <div class="footer-container">
+        <div mat-dialog-actions align="end" class="footer-content">
+          <button mat-raised-button [disabled]="!addCourseModel.valid" (click)="proceed()">
+            {{submitBtn}}
+          </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        </div>
+      </div>
+  </div>

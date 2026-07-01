@@ -1,0 +1,92 @@
+<app-menu></app-menu>
+
+<h1>Student Details</h1>
+
+<div class="data-container">
+
+<mat-form-field appearance="standard">
+  <mat-label>Global Search</mat-label>
+  <input matInput (keyup)="applyFilter()" placeholder="Ex. MedPlus" #input [(ngModel)]="filterData">
+</mat-form-field>
+
+<div class="mat-elevation-z8" class="displaydata">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Faculty full name column -->
+    <ng-container matColumnDef="faculty_name">
+      <th mat-header-cell *matHeaderCellDef> Faculty Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.faculty_full_name}} </td>
+    </ng-container>
+
+    <!-- Faculty username Column -->
+    <ng-container matColumnDef="faculty_username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Faculty Username </th>
+      <td mat-cell *matCellDef="let row"> {{row.faculty}} </td>
+    </ng-container>
+
+    <!-- Batch Time Column -->
+    <ng-container matColumnDef="batch_time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Batch Time </th>
+      <td mat-cell *matCellDef="let row"> {{row.batch_time}} </td>
+    </ng-container>
+
+    <!-- Department name Column -->
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef> Department </th>
+      <td mat-cell *matCellDef="let row">
+        <a href="javascript:void(0)" (click)="getDepartmentDetails(row)"> {{row.department}} </a>
+      </td>
+    </ng-container>
+    
+    <!-- Course name Column -->
+    <ng-container matColumnDef="course">
+        <th mat-header-cell *matHeaderCellDef> Course </th>
+        <td mat-cell *matCellDef="let row">
+          <a href="javascript:void(0)" (click)="getCourseDetails(row)"> {{row.course}} </a></td>
+      </ng-container>
+
+    <!-- Subject name Column -->
+    <ng-container matColumnDef="subject">
+      <th mat-header-cell *matHeaderCellDef> Subject </th>
+      <td mat-cell *matCellDef="let row">
+        <a href="javascript:void(0)" (click)="getSubjectDetails(row)"> {{row.subject}} </a>
+      </td>
+    </ng-container>
+    
+    <!-- Status of batch Column -->
+    <ng-container matColumnDef="is_active">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let row"> {{sharedService.status[0][row.is_active?'active':'inactive']}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button  color="primary" (click)="editBatchDetails(row)" *ngIf="userRole == 'admin'">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button  class="green-btn" (click)="deleteBatchDetails(row.batch_code)">
+          <mat-icon>feedback</mat-icon>
+          Start Feedback
+        </button>
+      </td>
+    </ng-container>
+    
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+</div>
+
+

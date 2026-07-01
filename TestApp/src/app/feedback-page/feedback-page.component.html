@@ -1,0 +1,42 @@
+<form (ngSubmit)="submitFeedback()">
+
+    <div *ngFor="let question of questions" class="question-card">
+
+        <h3>{{ question.question }}</h3>
+
+        <mat-radio-group [(ngModel)]="answers[question.id]"
+                         [name]="'question_' + question.id">
+
+            <mat-radio-button [value]="1">
+                {{ question.option_a }}
+            </mat-radio-button>
+
+            <br>
+
+            <mat-radio-button [value]="2">
+                {{ question.option_b }}
+            </mat-radio-button>
+
+            <br>
+
+            <mat-radio-button [value]="3">
+                {{ question.option_c }}
+            </mat-radio-button>
+
+            <br>
+
+            <mat-radio-button [value]="4">
+                {{ question.option_d }}
+            </mat-radio-button>
+
+        </mat-radio-group>
+
+    </div>
+
+    <br>
+
+    <button mat-raised-button color="primary">
+        Submit
+    </button>
+
+</form>

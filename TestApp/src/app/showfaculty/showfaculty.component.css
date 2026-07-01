@@ -1,0 +1,17 @@
+
+table{
+  width: 100em;
+}
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .container{
+    align-items: center;
+    justify-content: center;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding-top: 70px;
+  }

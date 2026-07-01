@@ -1,0 +1,29 @@
+<app-menu></app-menu>
+
+<div class="username-container">
+    <label>Username : </label>
+    <h2>{{fullNameOfUser}}</h2>
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+</div>
+<div class="container">
+
+    <div class="main-card" routerLink="/user-profile">
+        <div class="icon">
+        <mat-icon>perm_identity</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Profile</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/feedback-dashboard">
+        <div class="icon">
+        <mat-icon>feedback</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Start Feedback</h1>
+        </div>
+    </div>
+
+</div>
+

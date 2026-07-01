@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="header">
+    <mat-toolbar color="accent">
+      <span>{{submitBtn}} Subject</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar>
+  </div>
+
+  <br>
+    <div mat-dialog-content class="content-box">
+      <form class="example-form" [formGroup]="addSubjectModel" method="POST">
+        
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Subject Code</mat-label>
+          <input matInput placeholder="SUB001" formControlName="subject_code" name="subjectcode">
+          </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Subject Name</mat-label>
+          <input matInput placeholder="Programming in Python" formControlName="subject_name" name="subjectname">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+        <mat-label>Select Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let category of allCategory" [value]="category.category_code">
+            {{category.category_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate user</mat-checkbox>
+        <br><br><br>
+        </form>
+      </div>
+      <div class="footer-container">
+        <div mat-dialog-actions align="end" class="footer-content">
+          <button mat-raised-button [disabled]="!addSubjectModel.valid" (click)="proceed()">
+            {{submitBtn}}
+          </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        </div>
+      </div>
+    </div>

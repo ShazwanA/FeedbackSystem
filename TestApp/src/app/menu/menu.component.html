@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+    <div class="container">
+  
+    <div class="left-content">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Welcome</span>
+      <span class="example-spacer"></span>
+    </div>
+  
+      <div class="top-menu">
+        <li><button mat-button class="item" *ngIf="!isUserLoggedIn" (click)="createAdmin()">About Us</button></li>
+        <li><button mat-button class="item" *ngIf="!isUserLoggedIn" (click)="userData()">Contact Us</button></li>
+
+      </div>
+
+      <div class="right-content">
+      
+          <button mat-button (click)="openSigninDialog()" class="item" *ngIf="!isUserLoggedIn" name="btn-signin">
+            <mat-icon>person</mat-icon>
+            Sign in
+          </button>
+          <button mat-button [matMenuTriggerFor]="userprofile" class="item" *ngIf="isUserLoggedIn">{{userName}}
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #userprofile="matMenu">
+            
+            <button mat-menu-item (click)="redirectToDashboard()" *ngIf="isUserLoggedIn">Dashboard</button>
+            <button mat-menu-item (click)="changePassword()" *ngIf="isUserLoggedIn">Change Password</button>
+            <button mat-menu-item (click)="logout()" *ngIf="isUserLoggedIn">Sign out</button>
+          </mat-menu>
+  
+        <button mat-button [matMenuTriggerFor]="menu" name="btn-signup" class="item" *ngIf="!isUserLoggedIn">Signup
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="userSignup('faculty')">Teacher</button>
+          <button mat-menu-item (click)="userSignup('student')">Student</button>
+        </mat-menu>
+    </div>
+  </div>
+    </mat-toolbar>

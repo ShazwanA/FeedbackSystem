@@ -1,0 +1,199 @@
+<app-menu></app-menu>
+
+<!-- <div class="username">
+    <h1>Admin</h1>
+    <button mat-raised-button color="warn" (click)="logout()" style="float: right">Logout</button>
+</div> -->
+<div class="container">
+
+    <div class="main-card" (click)="userSignup('student')">
+        <div class="icon">
+        <mat-icon>person_add</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add Student</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="userSignup('faculty')">
+        <div class="icon">
+        <mat-icon>person_add</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add Teacher</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-new-student">
+        <div class="icon">
+            <span class="material-icons">approval</span>
+        </div>
+        <div class="label">
+        <h1>Approve New Students</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-new-faculty">
+        <div class="icon">
+            <span class="material-icons">approval</span>
+        </div>
+        <div class="label">
+        <h1>Approve New Teachers</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-student">
+        <div class="icon">
+        <mat-icon>group</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display All Students</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-faculty">
+        <div class="icon">
+        <mat-icon>group</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display All Teachers</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="openAddNewCourse()">
+        <div class="icon">
+        <mat-icon>note_add</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add Class/Course</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-courses">
+        <div class="icon">
+        <mat-icon>note_add</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display Class/Course</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="openAddNewDepartment()">
+        <div class="icon">
+        <mat-icon>school</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add Department</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-department">
+        <div class="icon">
+        <mat-icon>school</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display Departments</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="openAddNewSubject()">
+        <div class="icon">
+            <mat-icon>subject</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add Subject</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-subject">
+        <div class="icon">
+        <mat-icon>subject</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display Subjects</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="openAddNewCategory()">
+        <div class="icon">
+            <mat-icon>subject</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add New Category</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-category">
+        <div class="icon">
+        <mat-icon>subject</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display All Categories</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="openAssignBatch()">
+        <div class="icon">
+        <mat-icon>assignment_ind</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Assign Batch/Class</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-batch">
+        <div class="icon">
+        <mat-icon>assignment_ind</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Display Batch/Class</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="addFeedbackQuestion()">
+        <div class="icon">
+        <mat-icon>question_answer</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Add Feedback Question</h1>
+        </div>
+    </div>
+
+    <div class="main-card" routerLink="/display-all-feedback-questions">
+        <div class="icon">
+        <mat-icon>question_answer</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Show Feedback Questions</h1>
+        </div>
+    </div>
+
+    <div class="main-card">
+        <div class="icon">
+        <mat-icon>feedback</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Start Feedback</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="getUserProfile()">
+        <div class="icon">
+        <mat-icon>perm_identity</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Profile</h1>
+        </div>
+    </div>
+
+    <div class="main-card" (click)="changePassword()">
+        <div class="icon">
+        <mat-icon>vpn_key</mat-icon>
+        </div>
+        <div class="label">
+        <h1>Change User Password</h1>
+        </div>
+    </div>
+</div>
+
+
