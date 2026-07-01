@@ -1,0 +1,28 @@
+/* .head{
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+} */
+
+.container{
+    width: 100%;
+    padding-top: 70px;
+}
+
+table {
+    width: 100em;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  /* .data-container{
+    max-width: 1200px;
+    margin: 0 auto;
+  } */
+   

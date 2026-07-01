@@ -1,0 +1,129 @@
+<app-menu></app-menu>
+
+<div class="main-container">
+    <div class="container" *ngIf="(userProfileData.user_type == 'faculty' || userProfileData.user_type == 'student')">
+        <div class="main-card-head">
+            <p>First Name</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p class="data-value">{{userProfileData.first_name}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="(userProfileData.user_type == 'faculty' || userProfileData.user_type == 'student')">
+        <div class="main-card-head">
+            <p>Last Name</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p class="data-value">{{userProfileData.last_name}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.username">
+        <div class="main-card-head">
+            <p>Username</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.username}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'faculty' || userProfileData.user_type == 'student'">
+        <div class="main-card-head">
+            <p>Gender</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.gender}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'faculty' || userProfileData.user_type == 'student'">
+        <div class="main-card-head">
+            <p>Date of Birth</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.date_of_birth | date:'dd-MMM-yyyy'}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'faculty'">
+        <div class="main-card-head">
+            <p>Date of Joining</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.joining_date | date:'dd-MMM-yyyy'}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'faculty'">
+        <div class="main-card-head">
+            <p>Qualification</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.qualification}}</p>
+        <!-- </div> -->
+    </div>
+    <div class="container" *ngIf="userProfileData.user_type == 'faculty'">
+        <div class="main-card-head">
+            <p>Experience</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.experience}} Year(s)</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'student' || userProfileData.user_type == 'faculty'">
+        <div class="main-card-head">
+            <p>Department</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.department}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'student'">
+        <div class="main-card-head">
+            <p>Class/Course</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.course_name}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'student'">
+        <div class="main-card-head">
+            <p>Roll No.</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.roll_no}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'student'">
+        <div class="main-card-head">
+            <p>Father's Name</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{userProfileData.father_name}}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container" *ngIf="userProfileData.user_type == 'student' || userProfileData.user_type == 'faculty'">
+        <div class="main-card-head">
+            <p>Work Status</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{ userProfileData.work_status }}</p>
+        <!-- </div> -->
+    </div>
+
+    <div class="container">
+        <div class="main-card-head">
+            <p>User Status</p>
+        </div>
+        <!-- <div class="main-card-data"> -->
+            <p>{{ userStatus.status[0][userProfileData.is_active?'active':'inactive'] }}</p>
+        <!-- </div> -->
+    </div>
+
+</div>

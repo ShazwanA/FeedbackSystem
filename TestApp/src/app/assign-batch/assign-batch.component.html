@@ -1,0 +1,167 @@
+<!-- <mat-toolbar color="accent">
+
+    <span>{{updateBtn}} batch</span>
+    <span class="example-spacer"></span>
+    <mat-icon>assignment_ind</mat-icon>
+        
+</mat-toolbar>
+
+<br><br>
+
+<div clas="container">
+
+    <form class="example-form" [formGroup]="assignBatchModel">
+       <mat-form-field appearance="outline">
+        <mat-label>User Type</mat-label>
+        <mat-select formControlName="user_type">
+          <mat-option *ngFor="let user of usersList" [value]="user.userValue">
+            {{user.users}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <!-- <span *ngIf="department_name && department_name.invalid && department_name.touched" style="color:red;">Class name is required</span> -->
+      <!-- <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Batch Code</mat-label>
+        <input matInput placeholder="Artificial Intelligence" formControlName="batch_code" type="email" name="batch_code" [readonly] = "isReadOnly">
+      </mat-form-field>
+      
+      <br> -->
+      <!-- <span *ngIf="department_code && department_code.invalid && department_code.touched" style="color:red;">Departcode is required</span> -->
+      <!-- <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Faculty Name</mat-label>
+        <input matInput formControlName="faculty_name" name="faculty_name" maxlength="40">
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Faculty Username</mat-label>
+        <mat-select formControlName="facul_username">
+          <mat-option *ngFor="let user of facultyUsernameAll" [value]="user.facul_username">
+            {{user.facul_username}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Class</mat-label>
+        <mat-select formControlName="class_code">
+          <mat-option *ngFor="let class of allClasses" [value]="class.class_code">
+            {{class.class_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Subject</mat-label>
+        <mat-select formControlName="subject_code">
+          <mat-option *ngFor="let subject of allSubjects" [value]="subject.subject_code">
+            {{subject.subject_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Batch Time</mat-label>
+        <input matInput type="time" formControlName="batch_time" name="batch_time">
+      </mat-form-field>
+  
+      <div class="example-button-row">
+        <button mat-raised-button class="warn" (click)="assignBatch()">{{updateBtn}}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button mat-dialog-close color="warn">Close</button>
+      </div>
+    </form> -->
+    <!-- <div class="otheroptions">
+      <button mat-button [matMenuTriggerFor]="menu" color="primary">Signup</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item mat-dialog-close>Teacher</button>
+        <button mat-menu-item mat-dialog-close>Student</button>
+      </mat-menu>
+      <button mat-button color="primary">Forgot Password?</button>
+    </div> -->
+  <!-- </div> -->
+
+<div class="container">
+  <div class="header">
+    <mat-toolbar color="accent">
+      <span>{{submitBtn}} Batch</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar>
+  </div>
+
+  <br>
+    <div mat-dialog-content class="content-box">
+      <form class="example-form" [formGroup]="assignBatchModel" method="POST">
+        
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Batch Code</mat-label>
+          <input matInput placeholder="B. Tech II-Sem" formControlName="batch_code" type="email" name="batch_code" [readonly] = "isReadOnly">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Batch Time</mat-label>
+          <input matInput type="time" formControlName="batch_time" name="batch_time">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+        <mat-label>Faculty Username</mat-label>
+        <mat-select formControlName="faculty" (selectionChange)="getFacultyFullName($event)">
+            <mat-option *ngFor="let user of facultyData" [value]="user.username">
+              {{user.username}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="faculty_full_name" name="faculty_name" readonly [value]="facultyFullName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="department">
+          <mat-option *ngFor="let department of allDepartments" [value]="department.department_code">
+            {{department.department_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field appearance="outline">
+        <mat-label>Course</mat-label>
+        <mat-select formControlName="course">
+          <mat-option *ngFor="let course of allCourses" [value]="course.course_code">
+            {{course.course_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Subject</mat-label>
+        <mat-select formControlName="subject">
+          <mat-option *ngFor="let subject of allSubjects" [value]="subject.subject_code">
+            {{subject.subject_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate user</mat-checkbox>
+        <br><br><br>
+        </form>
+      </div>
+      <div class="footer-container">
+        <div mat-dialog-actions align="end" class="footer-content">
+          <button mat-raised-button [disabled]="!assignBatchModel.valid" (click)="proceed()">
+            {{submitBtn}}
+          </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        </div>
+      </div>
+    </div>
+

@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="header">
+    <mat-toolbar color="accent">
+      <span>{{submitBtn}}</span>
+      <span class="example-spacer"></span>
+      <div>
+        <button mat-icon-button (click)="openLoginDialog()" *ngIf="!isReadOnly && !isStaff" mat-dialog-close>
+          <mat-icon>person</mat-icon>
+        </button>
+        <button mat-button (click)="openLoginDialog()" *ngIf="!isReadOnly && !isStaff" mat-dialog-close>
+          Sign in
+        </button>
+      </div>
+    </mat-toolbar>
+  </div>
+    
+  <br>
+    <div mat-dialog-content class="content-box">
+      <form class="example-form" [formGroup]="userSignupFormModel" method="POST">
+
+        <mat-form-field appearance="outline">
+          <mat-label>User Type</mat-label>
+          <mat-select formControlName="user_type">
+            <mat-option *ngFor="let user of sharedService.userType" [value]="user.value">
+              {{user.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Ron" formControlName="first_name">
+          </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Weasly" formControlName="last_name">
+          </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="email" placeholder="weasly@gmail.com" formControlName="username" [readonly] = "isReadOnly">
+          </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline" *ngIf=showHidePassword>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+
+        <!-- <mat-label>Select Gender</mat-label><br>  <br> -->
+        <mat-radio-group aria-label="Select gender" formControlName="gender">
+          <mat-radio-button *ngFor="let gen of sharedService.gender" [value]="gen.value">{{gen.viewValue}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
+        </mat-radio-group>
+        
+        <br><br>
+          <mat-form-field appearance="outline" *ngIf="userType == 'student' || userType == 'faculty'">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="sDOB" formControlName="date_of_birth">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="sDOB"></mat-datepicker-toggle>
+            <mat-datepicker #sDOB></mat-datepicker>
+          </mat-form-field>
+        
+          <br><br>
+        <mat-form-field class="example-full-width" appearance="outline" *ngIf="userType == 'student'">
+          <mat-label>Father Name</mat-label>
+          <input matInput placeholder="Weasly" formControlName="father_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="userType == 'student'">
+            <mat-label>Select Course</mat-label>
+            <mat-select formControlName="course">
+              <mat-option *ngFor="let course of allCourses" [value]="course.course_code">
+                {{course.course_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Select Department</mat-label>
+            <mat-select formControlName="department">
+              <mat-option *ngFor="let department of allDepartments" [value]="department.department_code">
+                {{department.department_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+        <!-- Work Status Column -->
+          <mat-form-field class="example-full-width" appearance="outline" *ngIf="!(this.editData.requestType === 'Create')">
+            <mat-label>Work Status</mat-label>
+            <input matInput placeholder="Working, Studying" formControlName="status" readonly>
+          </mat-form-field>
+          <!-- <mat-form-field appearance="outline">
+          <mat-label>Work Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let user of workStatus" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+          <mat-form-field appearance="outline" *ngIf="userType == 'faculty'">
+            <mat-label>Date of Joining</mat-label>
+            <input matInput [matDatepicker]="fDOJ" formControlName="joining_date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="fDOJ"></mat-datepicker-toggle>
+            <mat-datepicker #fDOJ></mat-datepicker>
+          </mat-form-field>
+          <br><br>
+          <mat-form-field class="example-full-width" appearance="outline" *ngIf="userType == 'faculty'">
+            <mat-label>Qualification</mat-label>
+            <input matInput placeholder="M. Tech, MCA" formControlName="qualification">
+          </mat-form-field>
+  
+        <mat-form-field class="example-full-width" appearance="outline" *ngIf="userType == 'faculty'">
+          <mat-label>Experience (Numeric Only)</mat-label>
+          <input matInput placeholder="5 years" type="number" formControlName="experience">
+        </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" *ngIf="userType == 'student'">
+            <mat-label>Roll No(Numeric Only)</mat-label>
+            <input matInput placeholder="Roll No" type="number" formControlName="roll_no">
+          </mat-form-field>
+
+          <!-- <input type="file" accept="image/*" (change)="onChangeImage($event)">
+          <img [src]="image" [width]="imageWidth" [height]="imageHeight">
+          <br><br><br> -->
+
+          <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate user</mat-checkbox>
+        </form>
+      </div>
+      <div class="footer-container">
+        <div mat-dialog-actions align="end" class="footer-content">
+          <button mat-raised-button [disabled]="!userSignupFormModel.valid" (click)="proceed()">
+            {{submitBtn}}
+          </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        </div>
+      </div>
+    </div>

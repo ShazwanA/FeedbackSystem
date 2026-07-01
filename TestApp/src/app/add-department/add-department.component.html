@@ -1,0 +1,54 @@
+<mat-toolbar color="accent">
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button> -->
+    <span>{{submitButton}} department</span>
+    <span class="example-spacer"></span>
+    <mat-icon>school</mat-icon>
+        
+</mat-toolbar>
+
+<br><br>
+
+<div clas="container">
+
+    <form class="example-form" [formGroup]="addDepartmentModel">
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>User Type</mat-label>
+        <mat-select formControlName="user_type">
+          <mat-option *ngFor="let user of usersList" [value]="user.userValue">
+            {{user.users}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+      <!-- <span *ngIf="department_code && department_code.invalid && department_code.touched" style="color:red;">Departcode is required</span> -->
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Code</mat-label>
+        <input matInput formControlName="department_code" name="department_code" maxlength="10" [readonly]="isReadOnly">
+      </mat-form-field>
+
+      <br>
+      
+      <!-- <span *ngIf="department_name && department_name.invalid && department_name.touched" style="color:red;">Class name is required</span> -->
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Name</mat-label>
+        <input matInput placeholder="abc@gmail.com" formControlName="department_name" name="department_name">
+      </mat-form-field>
+
+      <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate Course</mat-checkbox>
+  
+      <div class="example-button-row">
+        <button mat-raised-button class="warn" (click)="addDepartment()">{{submitButton}}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button mat-dialog-close color="warn">Close</button>
+      </div>
+    </form>
+    <!-- <div class="otheroptions">
+      <button mat-button [matMenuTriggerFor]="menu" color="primary">Signup</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item mat-dialog-close>Teacher</button>
+        <button mat-menu-item mat-dialog-close>Student</button>
+      </mat-menu>
+      <button mat-button color="primary">Forgot Password?</button>
+    </div> -->
+  </div>
