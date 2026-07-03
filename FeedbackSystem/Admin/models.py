@@ -10,17 +10,17 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class AllUserManager(BaseUserManager):
-    def create_user(self, username, password=None, **extra_fields):
+    def create_user(self, fullname, username, password, user_type, **extra_fields):
         if not username:
             raise ValueError('The Username must be set')
-        user = self.model(username=username, **extra_fields)
+        user = self.model(full_name=fullname, username=username, user_type=user_type, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password=None, **extra_fields):
+    def create_superuser(self, fullname, username, password, usertype='admin', **extra_fields):
         extra_fields.setdefault('is_active', True)
-        user = self.create_user(username, password, **extra_fields)
+        user = self.create_user(fullname, username, password, usertype, **extra_fields)
         user.save(using=self._db)
         return user
 
@@ -50,15 +50,14 @@ class CourseDetails(CustomBaseModel):
 
 class AllUserDetails(CustomBaseModel):
     user_id = models.BigAutoField(primary_key=True)
-    username = models.CharField(unique=True, blank=False, max_length=35)
+    username = models.CharField(unique=True, blank=False, max_length=50)
     password = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20, null=True, blank=True)
+    full_name = models.CharField(max_length=50)
     gender = models.CharField(max_length=6, null=True, blank=True)
     date_of_birth = models.CharField(max_length=60, null=True, blank=True)
     user_type = models.CharField(max_length=15, blank=True)
     is_active = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, null=True, blank=True)
+    user_status = models.CharField(max_length=20, null=True, blank=True)
     department = models.ForeignKey(DepartmentDetails, max_length=10, on_delete=models.CASCADE, null=True)
 
     joining_date = models.CharField(max_length=60, null=True, blank=True)
