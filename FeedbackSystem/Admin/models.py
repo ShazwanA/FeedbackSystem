@@ -49,6 +49,7 @@ class CourseDetails(CustomBaseModel):
 
 
 class AllUserDetails(CustomBaseModel):
+    user_id = models.BigAutoField(primary_key=True)
     username = models.CharField(unique=True, blank=False, max_length=35)
     password = models.CharField(max_length=100)
     first_name = models.CharField(max_length=20)
@@ -67,6 +68,7 @@ class AllUserDetails(CustomBaseModel):
     father_name = models.CharField(max_length=35, null=True, blank=True)
     roll_no = models.IntegerField(default=None, null=True, blank=True)
     course = models.ForeignKey(CourseDetails, max_length=6, on_delete=models.CASCADE, null=True)
+    created_by = models.CharField(max_length=10, null=True)
 
     USERNAME_FIELD = "username"
     objects = AllUserManager()
@@ -80,6 +82,7 @@ class CategoryDetails(CustomBaseModel):
     category_code = models.CharField(max_length=10, primary_key=True)
     category_name = models.CharField(max_length=50)
     is_active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = True
@@ -91,6 +94,7 @@ class SubjectDetails(CustomBaseModel):
     subject_name = models.CharField(max_length=50)
     category = models.ForeignKey(CategoryDetails, max_length=50, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = True
@@ -107,6 +111,7 @@ class BatchDetails(CustomBaseModel):
     subject = models.ForeignKey(SubjectDetails, max_length=6, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
     year = models.IntegerField(default=date.today().year)
+    created_by = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = True
@@ -121,6 +126,7 @@ class FeedbackQuestionsData(CustomBaseModel):
     option_c = models.CharField(max_length=100)
     option_d = models.CharField(max_length=100)
     is_active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = True
@@ -137,6 +143,7 @@ class FeedbackByStudent(CustomBaseModel):
     answer = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     remarks = models.TextField(max_length=200)
     batch = models.ForeignKey(BatchDetails, on_delete=models.CASCADE)
+    created_by = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = True
