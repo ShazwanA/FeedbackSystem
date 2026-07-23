@@ -28,7 +28,7 @@ export class DashboardFacultyComponent implements OnInit {
     this.addItemDialog.open(SignupComponent, {
       width: '40%',
       height: '70%',
-      data: {row: userType, rquestType:'Create', message:'Create User'}
+      data: {row: userType, requestType:'Create', message:'Create User'}
     });
   }
 

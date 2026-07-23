@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ServicesService } from '../services/services.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { AddFeedbackQuestionComponent } from '../add-feedback-question/add-feedback-question.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertPopupComponent, ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
@@ -45,7 +45,7 @@ export class ShowAllFeedbackQuestionsComponent implements OnInit {
   };
      },
      error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
             this.alertPopup('Error', 'Session is expired. Please Login')
           }
@@ -67,6 +67,7 @@ export class ShowAllFeedbackQuestionsComponent implements OnInit {
      'option_b',
      'option_c',
      'option_d',
+     'option_e',
      'status',
      'action'
    ];
@@ -114,7 +115,7 @@ export class ShowAllFeedbackQuestionsComponent implements OnInit {
             });
             },  
             error: (error: HttpErrorResponse) => {
-            if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+            if(error.status==401){
               this.services.logout();
               this.alertPopup('Error', 'Session is expired. Please Login')
             }

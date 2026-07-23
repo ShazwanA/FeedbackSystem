@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from Admin.models import AllUserDetails, BatchDetails
+
+
 # from .models import TestModelAccordion
 
 
@@ -13,16 +15,15 @@ class AllFacultySerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = AllUserDetails
         fields = [
-            'id',
-            'first_name',
-            'last_name',
+            'user_id',
+            'full_name',
             'username',
             'gender',
             'date_of_birth',
             'department',
             'user_type',
             'is_active',
-            'status',
+            'user_status',
             'joining_date',
             'experience',
             'qualification',
@@ -33,8 +34,8 @@ class FacultyUsernameSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = AllUserDetails
         fields = [
-            'first_name',
-            'last_name',
+            'user_id',
+            'full_name',
             'username',
             'user_type',
             'is_active',
@@ -44,12 +45,15 @@ class FacultyUsernameSerializer(CustomSerializer, serializers.ModelSerializer):
 class ShowMyBatchesSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = BatchDetails
-        fields = [
+        fields = (
+            'id',
             'batch_code',
+            'faculty',
             'batch_time',
-            'department,'
             'course',
             'subject',
+            'department',
             'is_active',
             'year',
-        ]
+            'started_month'
+        )

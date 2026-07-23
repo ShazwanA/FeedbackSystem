@@ -1,7 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+  height: 100%; 
+}
+
+body { margin: 10; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .green-btn {
   background-color: #4CAF50; /* Material green 500 */
@@ -9,4 +12,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .green-btn:hover {
   background-color: #45a049; /* Darker on hover */
+}
+
+
+.table-container {
+    max-height: 500px;      /* Adjust as needed */
+    overflow-y: auto;
+    overflow-x: auto;
+}
+  
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.container {
+    width: 100%;
+}
+
+table {
+    width: max-content;      /* Enables horizontal scrolling */
+    min-width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+    min-width: 150px;
 }

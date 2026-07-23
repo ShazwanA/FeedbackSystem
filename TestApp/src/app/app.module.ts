@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule, routingComponents } from './app-routing.module';
@@ -54,9 +57,21 @@ import { ConfirmationPopupComponent, AlertPopupComponent, DetailsAlertPopupCompo
 import { AddFeedbackQuestionComponent } from './add-feedback-question/add-feedback-question.component';
 import { ShowAllFeedbackQuestionsComponent } from './show-all-feedback-questions/show-all-feedback-questions.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { FeedbackDashboardPageComponent } from './feedback-dashboard-page/feedback-dashboard-page.component';
+import { FeedbackDashboardPageComponent } from './feedback-dashboard-admin/feedback-dashboard-page.component';
 import { FeedbackPageComponent } from './feedback-page/feedback-page.component';
 import { ShowMyBatchesComponent } from './show-my-batches/show-my-batches.component';
+import { StatCardComponent } from './feedback-dashboard-admin/components/stat-card/stat-card.component';
+import { FeedbackTrendComponent } from './feedback-dashboard-admin/components/feedback-trend/feedback-trend.component';
+import { DepartmentChartComponent } from './feedback-dashboard-admin/components/department-chart/department-chart.component';
+import { TopFacultyComponent } from './feedback-dashboard-admin/components/top-faculty/top-faculty.component';
+import { TodaySummaryComponent } from './feedback-dashboard-admin/components/today-summary/today-summary.component';
+import { RecentFeedbackComponent } from './feedback-dashboard-admin/components/recent-feedback/recent-feedback.component';
+import { DepartmentPerformanceComponent } from './feedback-dashboard-admin/components/department-performance/department-performance.component';
+import { FeedbackDistributionComponent } from './feedback-dashboard-admin/components/feedback-distribution/feedback-distribution.component';
+import { QuickActionsComponent } from './feedback-dashboard-admin/components/quick-actions/quick-actions.component';
+import { StarRatingComponent } from './shared/star-rating/star-rating.component';
+import { EmptyStateComponent } from './feedback-dashboard-admin/components/empty-state/empty-state.component';
+import { ErrorStateComponent } from './feedback-dashboard-admin/components/error-state/error-state.component';
 
 
 
@@ -96,7 +111,19 @@ import { ShowMyBatchesComponent } from './show-my-batches/show-my-batches.compon
     ChangePasswordComponent,
     FeedbackDashboardPageComponent,
     FeedbackPageComponent,
-    ShowMyBatchesComponent
+    ShowMyBatchesComponent,
+    StatCardComponent,
+    FeedbackTrendComponent,
+    DepartmentChartComponent,
+    TopFacultyComponent,
+    TodaySummaryComponent,
+    RecentFeedbackComponent,
+    DepartmentPerformanceComponent,
+    FeedbackDistributionComponent,
+    QuickActionsComponent,
+    StarRatingComponent,
+    EmptyStateComponent,
+    ErrorStateComponent,
   ],
 
   imports: [
@@ -124,6 +151,9 @@ import { ShowMyBatchesComponent } from './show-my-batches/show-my-batches.compon
     MatMenuModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatCardModule,
+    MatListModule,
+    NgChartsModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

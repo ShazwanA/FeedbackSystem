@@ -1,3 +1,31 @@
-table{
-    width: 100%;
+th{
+    background-color: black;
+    color: white;
+}
+
+.filter{
+    width: 15em;
+}
+
+.show-more-link {
+  color: #1976d2;       /* Hyperlink blue */
+  cursor: pointer;      /* Hand cursor on hover */
+  text-decoration: underline;
+  margin-left: 4px;
+  text-decoration: none;  /* Remove underline */
+}
+
+.show-more-link:hover {
+  color: #0d47a1;       /* Darker blue on hover */
+}
+
+.question-column {
+  width: 300px;
+  max-width: 300px;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

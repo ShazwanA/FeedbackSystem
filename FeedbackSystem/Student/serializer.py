@@ -12,8 +12,8 @@ class AllStudentSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = AllUserDetails
         fields = (
-            'first_name',
-            'last_name',
+            'user_id',
+            'full_name',
             'username',
             'gender',
             'date_of_birth',
@@ -24,7 +24,7 @@ class AllStudentSerializer(CustomSerializer, serializers.ModelSerializer):
             'user_type',
             'is_active',
             'is_deleted',
-            'status',
+            'user_status',
         )
 
 

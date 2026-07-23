@@ -4,7 +4,7 @@ import { ServicesService } from '../services/services.service';
 import { DatePipe } from '@angular/common';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserLoginComponent } from '../user-login/user-login.component';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { AlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -26,7 +26,9 @@ export class SignupComponent implements OnInit {
   isReadOnly = false;
   userRole = "";
   isStaff = false;
+  isAdmin: any;
   showHidePassword = true;
+  allUsers: any = [];
   // image = "";
   // imageWidth = 0;
   // imageHeight = 0;
@@ -37,16 +39,23 @@ export class SignupComponent implements OnInit {
 // costructor method
   constructor(
     private router: Router,
-    private services:ServicesService,
+    @Inject(ServicesService) private services: ServicesService,
     private formbuild: FormBuilder,
     private dialog: MatDialog,
     public sharedService: SharedService,
     @Inject(MAT_DIALOG_DATA) public editData: any
-    ) { }
+    ) {
+      this.isAdmin = this.services.getRole()
+      
+      if (this.isAdmin==='admin')
+        this.allUsers = sharedService.userType
+      else
+        this.allUsers.push(this.sharedService.userType.find(user => user.value === this.editData.row));
+      console.log(this.allUsers);
+     }
 
   userSignupFormModel = this.formbuild.group({
-    first_name: ['', Validators.required],
-    last_name: [],
+    full_name: ['', Validators.required],
     username: [{value:'', disabled:true}, [Validators.required, Validators.email]],
     password: [
     '',
@@ -79,8 +88,9 @@ export class SignupComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertPopup('Error', 'Session is expired. Please Login');
           }
           else{
@@ -99,8 +109,9 @@ export class SignupComponent implements OnInit {
       this.allDepartments = response
       },
       error: (error: HttpErrorResponse) => {
-        if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+        if(error.status==401){
           this.services.logout();
+          this.dialog.closeAll();
           this.alertPopup('Error', 'Session is expired. Please Login');
         }
         else{
@@ -125,8 +136,7 @@ export class SignupComponent implements OnInit {
         // this.userType = this.editData.user_type
         this.userType = this.editData.row['user_type']
         this.userSignupFormModel.controls['user_type'].setValue(this.editData.row['user_type']);
-        this.userSignupFormModel.controls['first_name'].setValue(this.editData.row['first_name']);
-        this.userSignupFormModel.controls['last_name'].setValue(this.editData.row['last_name']);
+        this.userSignupFormModel.controls['full_name'].setValue(this.editData.row['full_name']);
         this.userSignupFormModel.controls['username'].setValue(this.editData.row['username']);
         this.userSignupFormModel.controls['password'].setValue(this.editData.row['password']);
         this.userSignupFormModel.controls['gender'].setValue(this.editData.row['gender']);
@@ -148,7 +158,9 @@ export class SignupComponent implements OnInit {
     }
   }
 
-proceed(){  
+proceed(){    
+  console.log("Testing...", this.editData.requestType);
+  
   if(this.editData.requestType === 'Create')
     {
       this.registerUser();
@@ -174,8 +186,9 @@ registerUser(){
         });
         },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertPopup('Error', 'Session is expired. Please Login');
           }
           else{
@@ -203,8 +216,9 @@ updateUserDetails(){
         });
       },
       error: (error: HttpErrorResponse) => {
-        if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+        if(error.status==401){
           this.services.logout();
+          this.dialog.closeAll();
           this.alertPopup('Error', 'Session is expired. Please Login')
         }
         else{
@@ -226,8 +240,9 @@ updateUserDetails(){
           });
         },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertPopup('Error', 'Session is expired. Please Login')
           }
           else{
@@ -251,8 +266,9 @@ approveUser(){
         });
       },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertPopup('Error', 'Session is expired. Please Login')
           }
           else{
@@ -272,8 +288,9 @@ approveUser(){
         });
       },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertPopup('Error', 'Session is expired. Please Login')
           }
           else{

@@ -8,45 +8,50 @@
   </div>
 
   <br>
-    <div mat-dialog-content class="content-box">
-      <form class="example-form" [formGroup]="addQuestionModel" method="POST">
-        
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Question</mat-label>
-            <input matInput placeholder="CAT000" formControlName="question" name="question">
-        </mat-form-field>
+  <div mat-dialog-content class="content-box">
+    <form class="example-form" [formGroup]="addQuestionModel" method="POST">
+      
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Question</mat-label>
+          <input matInput placeholder="How is your experience" formControlName="question" name="question">
+      </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Option A</mat-label>
-            <input matInput placeholder="Web Development" formControlName="option_a" name="optionA">
-        </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Option A</mat-label>
+          <input matInput placeholder="Web Development" formControlName="option_a" name="optionA">
+      </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Option B</mat-label>
-            <input matInput placeholder="Web Development" formControlName="option_b" name="optionB">
-        </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Option B</mat-label>
+          <input matInput placeholder="Web Development" formControlName="option_b" name="optionB">
+      </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Option C</mat-label>
-            <input matInput placeholder="Web Development" formControlName="option_c" name="optionC">
-        </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Option C</mat-label>
+          <input matInput placeholder="Web Development" formControlName="option_c" name="optionC">
+      </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Option D</mat-label>
-            <input matInput placeholder="Web Development" formControlName="option_d" name="optionD">
-        </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Option D</mat-label>
+          <input matInput placeholder="Web Development" formControlName="option_d" name="optionD">
+      </mat-form-field>
 
-          <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate Question</mat-checkbox>
-          <br><br><br>
-        </form>
-      </div>
-      <div class="footer-container">
-        <div mat-dialog-actions align="end" class="footer-content">
-          <button mat-raised-button [disabled]="!addQuestionModel.valid" (click)="proceed()">
-            {{submitBtn}}
-          </button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-        </div>
-      </div>
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Option E</mat-label>
+          <input matInput placeholder="Web Development" formControlName="option_e" name="optionE">
+      </mat-form-field>
+
+        <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate Question</mat-checkbox>
+        <br><br><br>
+      </form>
     </div>
+  <div class="footer-container">
+    <div mat-dialog-actions align="end" class="footer-content">
+      <button mat-raised-button [disabled]="!addQuestionModel.valid" (click)="proceed()">
+        {{submitBtn}}
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    </div>
+  </div>
+</div>

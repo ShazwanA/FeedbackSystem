@@ -1,0 +1,25 @@
+<mat-card>
+
+    <mat-card-title>
+
+        Feedback Trend
+
+    </mat-card-title>
+
+    <div class="chart-container">
+
+        <canvas
+
+            baseChart
+
+            [data]="lineChartData"
+
+            [options]="lineChartOptions"
+
+            [type]="'line'">
+
+        </canvas>
+
+    </div>
+
+</mat-card>

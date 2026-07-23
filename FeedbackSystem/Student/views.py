@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .serializer import AllStudentSerializer, FeedbackDashboardPageSerializer
-from Admin.models import AllUserDetails, CourseDetails, BatchDetails, FeedbackByStudent
+from Admin.models import AllUserDetails, CourseDetails, FeedbackByStudent, BatchDetails
 from distutils.util import strtobool
 from .constants import StudentStatus
 from django.db.models import Q
@@ -15,6 +15,7 @@ class ShowAllStudents(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
+
         if request.headers.get('Authorization'):
             token = request.auth.token
             if token:
@@ -136,7 +137,7 @@ class FeedbackDashboardPage(APIView):
     def get(self, request):
         try:
             current_year = date.today().year
-            check_already_feedback = FeedbackByStudent.objects.filter(student=request.user.username,
+            check_already_feedback = FeedbackByStudent.objects.filter(student=request.user.user_id,
                                                                       year=current_year, is_deleted=False)
             all_batches = BatchDetails.objects.filter(department=request.user.department.department_code,
                                                       course=request.user.course.course_code, is_active=True,

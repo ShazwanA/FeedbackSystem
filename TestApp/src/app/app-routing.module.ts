@@ -19,7 +19,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ShowAllFeedbackQuestionsComponent } from './show-all-feedback-questions/show-all-feedback-questions.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { FeedbackDashboardPageComponent } from './feedback-dashboard-page/feedback-dashboard-page.component';
+import { FeedbackDashboardPageComponent } from './feedback-dashboard-admin/feedback-dashboard-page.component';
 import { ShowMyBatchesComponent } from './show-my-batches/show-my-batches.component';
 
 
@@ -41,7 +41,7 @@ const routes: Routes = [
   {path: 'display-category', component: ShowCategoryComponent, canActivate:[AuthGuardGuard], data: {usertype: ["admin", "faculty"]}},
   {path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuardGuard]},
   {path: 'display-all-feedback-questions', component: ShowAllFeedbackQuestionsComponent, canActivate:[AuthGuardGuard], data: {usertype: ["admin", "faculty"]}},
-  {path: 'feedback-dashboard', component: FeedbackDashboardPageComponent, canActivate:[AuthGuardGuard], data: {usertype: ["admin", "faculty", "student"]}},
+  {path: 'feedback-dashboard-admin', component: FeedbackDashboardPageComponent, canActivate:[AuthGuardGuard], data: {usertype: ["admin"]}},
   {path: 'my-batches', component: ShowMyBatchesComponent, canActivate:[AuthGuardGuard], data: {usertype: ["faculty"]}},
 ];
 

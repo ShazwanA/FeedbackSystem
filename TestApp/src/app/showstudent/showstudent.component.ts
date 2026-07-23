@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SignupComponent } from '../signup/signup.component';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { Router } from '@angular/router';
 import { AlertPopupComponent, ConfirmationPopupComponent, DetailsAlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -22,6 +22,8 @@ export class ShowstudentComponent implements OnInit {
   filterData = "";
   allCourses: any;
   allDepartments: any;
+  statusFilter: string = '';
+  userRole: any;
    
   dataSource!: MatTableDataSource<any>;
 
@@ -35,7 +37,8 @@ export class ShowstudentComponent implements OnInit {
     public userStatus: SharedService,
     ) { 
 
-    this.services.displayAllStudent().subscribe({
+      this.userRole = this.services.getRole();
+      this.services.displayAllStudent().subscribe({
       next:(data: any)=>{
         
       this.dataSource = new MatTableDataSource(data);
@@ -45,8 +48,7 @@ export class ShowstudentComponent implements OnInit {
     });
   }
   displayedColumns: string[] = [
-    'first_name', 
-    // 'last_name', 
+    'full_name', 
     'username', 
     'gender', 
     'father_name', 
@@ -55,13 +57,12 @@ export class ShowstudentComponent implements OnInit {
     'course', 
     'department',
     'user_type',
+    'is_active',
     'user_status',
-    'work_status',
     'action'
   ];
   
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   getCourseDetails(course_data:any){
     this.services.allCourses().subscribe({
@@ -134,13 +135,23 @@ export class ShowstudentComponent implements OnInit {
 
   applyFilter() {
     // console.log(this.filterData)
-    this.services.searchStudent({data:this.filterData}).subscribe({
-      next:(data: any)=>{
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
+    // this.services.searchStudent({data:this.filterData}).subscribe({
+    //   next:(data: any)=>{
+    //     this.dataSource = new MatTableDataSource(data);
+    //     this.dataSource.paginator = this.paginator;
         
-      }  
-    })
+    //   }  
+    // })
+
+  const filter = {
+    status: this.statusFilter || ''
+  };
+
+  this.dataSource.filter = JSON.stringify(filter);
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
 
     // const filterValue = (event.target as HTMLInputElement).value;
     // this.dataSource.filter = filterValue.trim().toLowerCase();

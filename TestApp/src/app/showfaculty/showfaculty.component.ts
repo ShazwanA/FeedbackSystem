@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FacultySignupComponent } from '../faculty-signup/faculty-signup.component';
 import { ServicesService } from '../services/services.service';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { SignupComponent } from '../signup/signup.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -39,8 +39,7 @@ export class ShowfacultyComponent implements OnInit {
   });
   }
   displayedColumns: string[] = [
-    'first_name',
-    'last_name',
+    'full_name',
     'username',
     'gender',
     'date_of_birth',
@@ -50,7 +49,7 @@ export class ShowfacultyComponent implements OnInit {
     'experience',
     'user_type',
     'status',
-    'user_status',
+    'is_active',
     'action'
   ];
   ngOnInit(): void { }

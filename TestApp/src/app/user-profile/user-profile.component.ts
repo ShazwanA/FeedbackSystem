@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesService } from '../services/services.service';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,8 +11,7 @@ export class UserProfileComponent implements OnInit {
   username: any = false;
 
   userProfileData ={
-    first_name:'',
-    last_name:'',
+    full_name:'',
     username:'',
     user_type:'',
     gender:'',
@@ -25,7 +24,7 @@ export class UserProfileComponent implements OnInit {
     department:'',
     course_name:'',
     is_active:false,
-    work_status:'',
+    user_status:'',
     }
 
   constructor(
@@ -37,8 +36,7 @@ export class UserProfileComponent implements OnInit {
     this.username = localStorage.getItem('username');
 
     this.services.getUserProfile(this.username).subscribe((response) =>{
-      this.userProfileData.first_name = response.first_name
-      this.userProfileData.last_name = response.last_name
+      this.userProfileData.full_name = response.full_name
       this.userProfileData.username = response.username
       this.userProfileData.gender = response.gender
       this.userProfileData.date_of_birth = response.date_of_birth
@@ -51,7 +49,7 @@ export class UserProfileComponent implements OnInit {
       this.userProfileData.course_name = response.course_name
       this.userProfileData.is_active = response.is_active
       this.userProfileData.user_type = response.user_type
-      this.userProfileData.work_status = response.status
+      this.userProfileData.user_status = response.status
       
       }
     )

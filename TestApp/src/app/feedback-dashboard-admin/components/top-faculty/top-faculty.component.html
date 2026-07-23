@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-title>
+        🏆 Top Faculty
+    </mat-card-title>
+<ng-container *ngIf="topFaculty.length; else empty">
+    <mat-list>
+        <mat-list-item
+            *ngFor="let faculty of topFaculty; let i=index">
+            <div class="faculty-row">
+                <div>
+                    <strong>
+                        {{i+1}}.
+                        {{faculty.faculty__first_name}}
+                        {{faculty.faculty__last_name}}
+                    </strong>
+                    <br>
+                    {{faculty.batch__department__department_name}}
+                </div>
+
+                <div class="rating">
+                    ⭐ {{faculty.average_rating | number:'1.1-2'}}
+                    <br>
+                    {{faculty.total_feedback}}
+                    Feedbacks
+                </div>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</ng-container>
+<ng-template #empty>
+    <app-empty-state
+        [message]="'No top faculty data available.'">
+    </app-empty-state>
+</ng-template>
+</mat-card>

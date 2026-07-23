@@ -1,34 +1,4 @@
-.data-container{
-  padding-top: 70px;
-}
-
-table {
-  width: 130vw;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  /* .data-container{
-    max-width: 1200px;
-    margin: 0 auto;
-  } */
-  
-
-.action-button{
-  font-size: 12px;
-  size: 5px;
-  text-align: left;
-}
-
-.no-wrap{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.paginator{
-  width: 100%;
+th{
+    background-color: black;
+    color: white;
 }

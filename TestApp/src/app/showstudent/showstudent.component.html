@@ -1,25 +1,35 @@
 <app-menu></app-menu>
 
+<div class="head">
+  <h1>Heading Here</h1>
+</div>
+
 <div class="data-container">
 <h1>All Student Details</h1>
-<mat-form-field appearance="standard">
+<mat-form-field appearance="standard" class="filter">
   <mat-label>Global Search (case sensitive)</mat-label>
   <input matInput (keyup)="applyFilter()" placeholder="Ex. MedPlus" #input [(ngModel)]="filterData">
 </mat-form-field>
 
-<div class="mat-elevation-z8" class="displaydata">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<mat-form-field appearance="standard" class="filter">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilter()">
+
+        <mat-option value="" *ngIf="userRole == 'admin'">All</mat-option>
+        <mat-option value="true">Active</mat-option>
+        <mat-option value="false" *ngIf="userRole == 'admin'">Inactive</mat-option>
+
+    </mat-select>
+</mat-form-field>
+
+<div class="table-container mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- First name column -->
-    <ng-container matColumnDef="first_name">
+    <ng-container matColumnDef="full_name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.first_name}}&nbsp;{{row.last_name}} </td>
-    </ng-container>
-
-    <!-- last name Column -->
-    <ng-container matColumnDef="last_name" class="ng-container">
-      <th mat-header-cell *matHeaderCellDef> Last Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.last_name}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.first_name}}&nbsp;{{row.full_name}} </td>
     </ng-container>
 
     <!-- username Column -->
@@ -67,13 +77,13 @@
     </ng-container>
 
     <!-- User status Column -->
-    <ng-container matColumnDef="user_status">
+    <ng-container matColumnDef="is_active">
       <th mat-header-cell *matHeaderCellDef> User Status </th>
       <td mat-cell *matCellDef="let row"> {{userStatus.status[0][row.is_active?'active':'inactive']}} </td>
     </ng-container>
 
     <!-- User type Column -->
-    <ng-container matColumnDef="work_status">
+    <ng-container matColumnDef="user_status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let row"> {{row.status}} </td>
     </ng-container>
@@ -108,9 +118,8 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
-
-  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
 
 

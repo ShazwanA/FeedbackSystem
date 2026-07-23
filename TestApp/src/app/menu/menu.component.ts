@@ -98,7 +98,6 @@ export class MenuComponent {
 
   logout(){
     this.services.logout();
-    // window.location.reload();
   }
 
   userData(){
@@ -122,11 +121,11 @@ export class MenuComponent {
   //   })
   // }
 
-  createAdmin(){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/create-super-user', '').subscribe({
-    next: (result) => {
-      console.log(result);
-  }
-});
-}
+//   createAdmin(){
+//     return this.http.post<any>('http://127.0.0.1:8090/Admin/create-super-user', '').subscribe({
+//     next: (result) => {
+//       console.log(result);
+//   }
+// });
+// }
 }

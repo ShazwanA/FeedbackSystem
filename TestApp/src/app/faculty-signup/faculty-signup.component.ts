@@ -6,7 +6,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserLoginComponent } from '../user-login/user-login.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-faculty-signup',

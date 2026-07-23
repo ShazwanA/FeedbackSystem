@@ -5,8 +5,10 @@ import { Route } from '@angular/router';
 import { FacultySignupComponent } from '../faculty-signup/faculty-signup.component';
 import { ServicesService } from '../services/services.service';
 import { SignupComponent } from '../signup/signup.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-user-login',
@@ -21,11 +23,6 @@ export class UserLoginComponent implements OnInit {
   showHidePassword = true;
   responseMsg = ''
 
-  usersList: Users[] = [
-    {users : 'Admin', userValue: 'admin'},
-    {users : 'Faculty', userValue: 'faculty'},
-    {users : 'Student', userValue: 'student'},
-  ];
   result = '';
 
   constructor(
@@ -33,9 +30,9 @@ export class UserLoginComponent implements OnInit {
     private signupDialog: MatDialog,
     private signinDialog: MatDialog,
     private services: ServicesService,
-    private http: HttpClient,
-    private route: Router,
-    private matdailog: MatDialog,
+    public sharedServices: SharedService,
+    private router: Router,
+    private dialog: MatDialog,
     ){ }
     loginform = this.formbuild.group({
       username: ['', Validators.required],
@@ -75,6 +72,7 @@ export class UserLoginComponent implements OnInit {
   this.services.userLogin(this.loginform.value.username, this.loginform.value).subscribe({
     next: (result) => {  
       this.isInvalid = false;
+      
       localStorage.setItem('username', result.username!);
       localStorage.setItem('STATE', result.STATE);
       localStorage.setItem('usertype', result.user_type);
@@ -82,23 +80,34 @@ export class UserLoginComponent implements OnInit {
       localStorage.setItem('refresh_token', result.refresh)
       
   
-      this.matdailog.closeAll();
+      this.dialog.closeAll();
       if (result.user_type == 'admin')
-        this.route.navigate(['dashboard-admin']);
+        this.router.navigate(['dashboard-admin']);
       else if (result.user_type == 'faculty')
-        this.route.navigate(['dashboard-faculty']);
+        this.router.navigate(['dashboard-faculty']);
       else if (result.user_type == 'student')
-        this.route.navigate(['dashboard-student']);
+        this.router.navigate(['dashboard-student']);
       else{
         console.log('No user role found');
-        this.route.navigate([''])
+        this.router.navigate([''])
         }
     },
-    error: (err) => {
-      console.error(err.error);
-      this.isInvalid = true;
-      this.responseMsg = err.error
-    }
+    error: (error: HttpErrorResponse) => {
+              
+              if(error.status==401){
+                this.services.logout();
+                this.dialog.closeAll();
+                this.alertPopup('Error', 'Session is expired. Please Login');
+              }
+              else{
+                this.alertPopup('Error Raised', error.error)
+                this.responseMsg = error.error
+                const currentUrl = this.router.url;
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                this.router.navigate([currentUrl]);
+                });
+              }
+            }
   });
   }
 
@@ -121,6 +130,16 @@ export class UserLoginComponent implements OnInit {
     console.log(this.loginform.value.username);
     
   }
+
+  alertPopup(title: any, message: any){
+      const dialogRef = this.dialog.open(AlertPopupComponent, {
+        width: '400px',
+        data: {
+          title: title,
+          message: message
+        }
+      });
+    }
 
 }
 

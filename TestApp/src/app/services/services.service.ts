@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, window } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -41,23 +42,23 @@ export class ServicesService {
     }
 
   userLogin(username:any, userData: any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/login-user', {username: username, userData});
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/login-user`, {username: username, userData});
   }
 
   getUserProfile(username:any){
-    return this.http.get<any>('http://127.0.0.1:8090/Admin/user-profile');
+    return this.http.get<any>(`${environment.BASE_URL}/Admin/user-profile`);
   }
 
   changePassword(passwordData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/change-password', passwordData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/change-password`, passwordData);
   }
 
   changePasswordByParent(passwordData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/change-password-by-parent', passwordData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/change-password-by-parent`, passwordData);
   }
 
   logout(){
-    this.http.get('http://127.0.0.1:8090/Admin/logout').subscribe(result =>{
+    this.http.get(`${environment.BASE_URL}/Admin/logout`).subscribe(result =>{
       console.log(result);
     })
     localStorage.clear()
@@ -66,179 +67,183 @@ export class ServicesService {
   }
 
   displayAllStudent(){
-    return this.http.get('http://127.0.0.1:8090/Student/show-all-student');
+    return this.http.get(`${environment.BASE_URL}/Student/show-all-student`);
   }
 
   updateStudent(studentData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Student/update-student-details',{studentData});
+    return this.http.post<any>(`${environment.BASE_URL}/Student/update-student-details`,{studentData});
   }
 
   searchStudent(studentData:any){
-    return this.http.post('http://127.0.0.1:8090/Student/search-student',studentData);
+    return this.http.post(`${environment.BASE_URL}/Student/search-student`,studentData);
   }
 
   rejectNewStudentRequest(username:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Student/reject-new-student-request', {username});
+    return this.http.post<any>(`${environment.BASE_URL}/Student/reject-new-student-request`, {username});
   }
 
   showApprovalRequestForStudent(){
-    return this.http.get('http://127.0.0.1:8090/Student/show-to-approve-new-student');
+    return this.http.get(`${environment.BASE_URL}/Student/show-to-approve-new-student`);
   }
 
   approveStudentRequest(approvalData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Student/approve-new-student-request', {approvalData});
+    return this.http.post<any>(`${environment.BASE_URL}/Student/approve-new-student-request`, {approvalData});
   }
 
   deleteStudent(username:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Student/delete-student', username);
+    return this.http.post<any>(`${environment.BASE_URL}/Student/delete-student`, username);
   }
 
   registerNewUser(userData: any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/add-user',{userData});
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/add-user`,{userData});
   }
 
   updateFaculty(facultyData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Faculty/update-faculty-details', {facultyData});
+    return this.http.post<any>(`${environment.BASE_URL}/Faculty/update-faculty-details`, {facultyData});
   }
 
   displayAllFaculty(){
-    return this.http.get('http://127.0.0.1:8090/Faculty/show-all-faculty');
+    return this.http.get(`${environment.BASE_URL}/Faculty/show-all-faculty`);
   }
 
-  displayFacultyUsername(){
-    return this.http.get('http://127.0.0.1:8090/Faculty/show-faculty-username');
+  getFacultyUsername(){
+    return this.http.get(`${environment.BASE_URL}/Faculty/show-faculty-username`);
   }
   
   displayAllUsername(){
-    return this.http.get('http://127.0.0.1:8090/Admin/all-user-names');
+    return this.http.get(`${environment.BASE_URL}/Admin/all-user-names`);
   }
 
   deleteFaculty(username:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Faculty/delete-faculty', username);
+    return this.http.post<any>(`${environment.BASE_URL}/Faculty/delete-faculty`, username);
   }
 
   showApprovalRequestForFaculty(){
-    return this.http.get('http://127.0.0.1:8090/Faculty/show-new-faculty-pending_requests');
+    return this.http.get(`${environment.BASE_URL}/Faculty/show-new-faculty-pending_requests`);
   }
 
   approveFaculty(approvalData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Faculty/approve-new-faculty-request', {approvalData});
+    return this.http.post<any>(`${environment.BASE_URL}/Faculty/approve-new-faculty-request`, {approvalData});
   }
 
   addCourse(courseData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/add-new-course',courseData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/add-new-course`,courseData);
   }
 
   allCourses(is_active: boolean =false){
     const params = {
       is_active: is_active
     }
-    return this.http.get('http://127.0.0.1:8090/Admin/show-all-courses', {params});
+    return this.http.get(`${environment.BASE_URL}/Admin/show-all-courses`, {params});
   }
 
   updateCourse(courseData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/update-course', courseData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/update-course`, courseData);
   }
 
   deleteCourse(course_code:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/delete-class', {course_code});
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/delete-course`, {course_code});
   }
 
   displayAllSubjects(is_active: boolean =false){
     const params = {
       is_active: is_active
     }
-    return this.http.get('http://127.0.0.1:8090/Admin/show-all-subjects', {params});
+    return this.http.get(`${environment.BASE_URL}/Admin/show-all-subjects`, {params});
   }
 
   addSubject(SubjectData:any){
-    return this.http.post('http://127.0.0.1:8090/Admin/add-new-subject',SubjectData);
+    return this.http.post(`${environment.BASE_URL}/Admin/add-new-subject`,SubjectData);
   }
 
   updateSubject(subjectData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/update-subject', subjectData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/update-subject`, subjectData);
   }
 
   deleteSubject(subjectCode:any){
-    return this.http.get<any>('http://127.0.0.1:8090/Admin/delete-subject/'+subjectCode);
+    return this.http.get<any>(`${environment.BASE_URL}/Admin/delete-subject/`+subjectCode);
   }
 
   allDepartments(is_active: boolean =false){
     const params = {
       is_active: is_active
     }
-    return this.http.get('http://127.0.0.1:8090/Admin/show-all-departments', {params});
+    return this.http.get(`${environment.BASE_URL}/Admin/show-all-departments`, {params});
   }
 
   addDepartment(departmentData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/add-new-department',departmentData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/add-new-department`,departmentData);
   }
 
   updateDepartment(departmentData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/update-department', departmentData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/update-department`, departmentData);
   }
 
   deleteDepartment(departmentCode:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/delete-department', {departmentCode});
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/delete-department`, {departmentCode});
   }
 
   assignNewBatch(batchData: any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/assign-new-batch', batchData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/assign-new-batch`, batchData);
   }
 
   allBatches(){
-    return this.http.get('http://127.0.0.1:8090/Admin/show-all-batches');
+    return this.http.get(`${environment.BASE_URL}/Admin/show-all-batches`);
   }
 
   updateBatch(batchData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/update-batch', batchData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/update-batch`, batchData);
   }
 
   searchBatch(batchData:any){
-    return this.http.post('http://127.0.0.1:8090/Admin/search-batch',batchData);
+    return this.http.post(`${environment.BASE_URL}/Admin/search-batch`,batchData);
   }
 
   deleteBatch(batchCode:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/delete-batch', {batchCode});
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/delete-batch`, {batchCode});
   }
 
   addCategory(categoryData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/add-new-category', categoryData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/add-new-category`, categoryData);
   }
 
   updateCategory(categoryData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/update-category', categoryData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/update-category`, categoryData);
   }
 
   allCategory(is_active: boolean =false){
     const params = {
       is_active: is_active
     }
-    return this.http.get('http://127.0.0.1:8090/Admin/show-all-category', {params});
+    return this.http.get(`${environment.BASE_URL}/Admin/show-all-category`, {params});
   }
 
   deleteCategory(categoryCode:any){
-    return this.http.get<any>('http://127.0.0.1:8090/Admin/delete-category/'+categoryCode);
+    return this.http.get<any>(`${environment.BASE_URL}/Admin/delete-category/`+categoryCode);
   }
 
   addQuestion(questionData: any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/add-feedback-question', questionData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/add-feedback-question`, questionData);
   }
 
   allFeedbackQuestions(){
-    return this.http.get('http://127.0.0.1:8090/Admin/show-all-feedback-questions');
+    return this.http.get(`${environment.BASE_URL}/Admin/show-all-feedback-questions`);
   }
 
   updateFeedbackQuestions(questionData:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/update-feedback-question', questionData);
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/update-feedback-question`, questionData);
   }
 
   deleteFeedbackQuestion(questionId:any){
-    return this.http.post<any>('http://127.0.0.1:8090/Admin/delete-feedback-question', {questionId});
+    return this.http.post<any>(`${environment.BASE_URL}/Admin/delete-feedback-question`, {questionId});
   }
 
   feedbackDashboardPage(){
-    return this.http.get('http://127.0.0.1:8090/Student/feedback-dashboard-page');
+    return this.http.get(`${environment.BASE_URL}/Student/feedback-dashboard-page`);
+  }
+
+  getDashboardCards() {
+  return this.http.get<any>(`${environment.BASE_URL}/Admin/admin-dashboard`);
   }
 
 
@@ -247,33 +252,24 @@ export class ServicesService {
 
   //URL for testing purpose
   testModel(testData: any): Observable<any>{
-    return this.http.post('http://127.0.0.1:8090/GeneratePaySlip/test-model',testData);
+    return this.http.post(`${environment.BASE_URL}/GeneratePaySlip/test-model`,testData);
   }
 
   testModelGet(){
-    return this.http.get('http://127.0.0.1:8090/GeneratePaySlip/test-model');
+    return this.http.get(`${environment.BASE_URL}/GeneratePaySlip/test-model`);
   }
   
   deleteTestModel(){
-    return this.http.get('http://127.0.0.1:8090/GeneratePaySlip/delete-test-model');
+    return this.http.get(`${environment.BASE_URL}/GeneratePaySlip/delete-test-model`);
   }
 
   testAdminLogin(params:any){
-    return this.http.post('http://127.0.0.1:8090/Admin/class-based-view', params, {withCredentials:true});
+    return this.http.post(`${environment.BASE_URL}/Admin/class-based-view`, params, {withCredentials:true});
   }
 
   userData(){
     // debugger;
-    return this.http.get('http://127.0.0.1:8090/Admin/user-data', {withCredentials:true});
+    return this.http.get(`${environment.BASE_URL}/Admin/user-data`, {withCredentials:true});
   }
-
-  // logoutUser(){
-  //   debugger;
-  //   const result = this.http.get('http://127.0.0.1:8090/Admin/logout', {withCredentials:true});
-  //     localStorage.clear()
-  //     this.isLoggedIn.next(false);
-  //     this.route.navigate([''])
-  //     return result;
-  // }
 
 }

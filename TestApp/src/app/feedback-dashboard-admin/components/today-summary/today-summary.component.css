@@ -1,0 +1,24 @@
+mat-card{
+    height:100%;
+}
+
+.summary-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #eeeeee;
+}
+
+.summary-item:last-child{
+    border-bottom:none;
+}
+
+.summary-item span{
+    flex:1;
+    margin-left:12px;
+}
+
+.summary-item strong{
+    font-size:18px;
+}

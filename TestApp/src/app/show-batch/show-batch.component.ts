@@ -8,7 +8,7 @@ import { AssignBatchComponent } from '../assign-batch/assign-batch.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertPopupComponent, ConfirmationPopupComponent, DetailsAlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Router } from '@angular/router';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-show-batch',
@@ -44,23 +44,26 @@ export class ShowBatchComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(this.dataSource);
+      
       }
     });
   }
   displayedColumns: string[] = [
     'batch_code',
-    'faculty_name',
-    'faculty_username',
+    'full_name',
+    'username',
     'batch_time',
     'department',
     'course',
     'subject',
+    'month',
+    'year',
     'is_active',
     'action'
   ];
   
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 
   applyFilter() {

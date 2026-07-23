@@ -1,0 +1,65 @@
+<mat-card>
+
+    <mat-card-title>
+
+        Today's Summary
+
+    </mat-card-title>
+
+    <div class="summary-item">
+
+        <mat-icon color="primary">
+
+            rate_review
+
+        </mat-icon>
+
+        <span>Feedback Today</span>
+
+        <strong>{{todaySummaryData?.feedback_today}}</strong>
+
+    </div>
+
+    <div class="summary-item">
+
+        <mat-icon color="primary">
+
+            school
+
+        </mat-icon>
+
+        <span>Active Students</span>
+
+        <strong>{{todaySummaryData?.active_students}}</strong>
+
+    </div>
+
+    <div class="summary-item">
+
+        <mat-icon color="primary">
+
+            groups
+
+        </mat-icon>
+
+        <span>Active Faculty</span>
+
+        <strong>{{todaySummaryData?.active_faculty}}</strong>
+
+    </div>
+
+    <div class="summary-item">
+
+        <mat-icon color="primary">
+
+            menu_book
+
+        </mat-icon>
+
+        <span>Running Batches</span>
+
+        <strong>{{todaySummaryData?.running_batches}}</strong>
+
+    </div>
+
+</mat-card>

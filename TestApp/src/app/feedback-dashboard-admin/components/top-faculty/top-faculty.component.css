@@ -1,0 +1,12 @@
+.faculty-row{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+    align-items:center;
+}
+
+.rating{
+    text-align:right;
+    color:#1976d2;
+    font-weight:600;
+}

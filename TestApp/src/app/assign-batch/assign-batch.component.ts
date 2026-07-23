@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Router } from '@angular/router';
 import { MatSelectChange } from '@angular/material/select';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-assign-batch',
@@ -22,22 +23,26 @@ export class AssignBatchComponent implements OnInit {
   allSubjects: any;
   allCourses: any;
   isStaff: any;
+  allMonths: any = [];
+  currentYear: any = [new Date().getFullYear(), new Date().getFullYear()+1];
 
   constructor(
     private formbuild: FormBuilder,
     private services: ServicesService,
     private dialog: MatDialog,
     private router: Router,
+    public sharedService: SharedService,
     @Inject(MAT_DIALOG_DATA) public editData: any
     ) { 
-        this.services.displayFacultyUsername().subscribe({
+      
+        this.allMonths = sharedService.monthNames;
+
+        this.services.getFacultyUsername().subscribe({
           next: (response) => {
           this.facultyData = response
-          // console.log(this.facultyData);
-          
           },
-          error: (error: HttpErrorResponse) => {
-            if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          error: (error) => {
+            if(error.status==401){
               this.dialog.closeAll();
               this.services.logout();
               this.alertPopup('Error', 'Session is expired. Please Login');
@@ -57,7 +62,7 @@ export class AssignBatchComponent implements OnInit {
         this.allCourses = response
         },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.dialog.closeAll();
             this.services.logout();
             this.alertPopup('Error', 'Session is expired. Please Login');
@@ -77,7 +82,7 @@ export class AssignBatchComponent implements OnInit {
         this.allSubjects = response
         },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.dialog.closeAll();
             this.services.logout();
             this.alertPopup('Error', 'Session is expired. Please Login');
@@ -97,7 +102,7 @@ export class AssignBatchComponent implements OnInit {
         this.allDepartments = response
         },
         error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.dialog.closeAll();
             this.services.logout();
             this.alertPopup('Error', 'Session is expired. Please Login');
@@ -111,20 +116,21 @@ export class AssignBatchComponent implements OnInit {
           }
         }
       });
-    }
+    }       // constructor closed
 
     assignBatchModel = this.formbuild.group({
       batch_code: ['',
         [Validators.required,
          Validators.pattern(/^(?=.*[A-Z])(?=.*\d)[A-Z0-9]+$/),
          Validators.maxLength(10)]],
-      faculty_full_name: [],
-      faculty: [],
-      department: [],
-      course: [],
-      subject: [],
-      batch_time: [],
-      is_active: [false]
+      faculty: ['', Validators.required],
+      department: ['', Validators.required],
+      course: ['', Validators.required],
+      subject: ['', Validators.required],
+      batch_time: ['', Validators.required],
+      started_month: ['', Validators.required],
+      year: ['', Validators.required],
+      is_active: [false],
     }
   )
 
@@ -136,9 +142,10 @@ export class AssignBatchComponent implements OnInit {
       this.assignBatchModel.controls['department'].setValue(this.editData.department);
       this.assignBatchModel.controls['subject'].setValue(this.editData.subject);
       this.assignBatchModel.controls['course'].setValue(this.editData.course);
-      this.assignBatchModel.controls['faculty_full_name'].setValue(this.editData.faculty_full_name);
       this.assignBatchModel.controls['faculty'].setValue(this.editData.faculty);
       this.assignBatchModel.controls['batch_time'].setValue(this.editData.batch_time);
+      this.assignBatchModel.controls['started_month'].setValue(this.editData.started_month);
+      this.assignBatchModel.controls['year'].setValue(this.editData.year);
       this.assignBatchModel.controls['is_active'].setValue(this.editData.is_active);
     }
     if(this.services.getRole() == 'admin')
@@ -151,7 +158,7 @@ export class AssignBatchComponent implements OnInit {
 
   getFacultyFullName(event: MatSelectChange){
     for(let user=0; user<this.facultyData.length; user++)
-    {      
+    { 
       if(this.assignBatchModel.controls['faculty'].value === this.facultyData[user]['username'])
       {        
         this.facultyFullName = this.facultyData[user]['first_name']+
@@ -162,15 +169,14 @@ export class AssignBatchComponent implements OnInit {
 
   proceed(){
     if(!this.editData){
-      this.assignBatch();
+      this.assignBatch();      
     }
     else if(this.editData){
       this.updateBatchDetails();
     }
   }
 
-  assignBatch(){
-    this.assignBatchModel.get('faculty_full_name')?.setValue(this.facultyFullName);    
+  assignBatch(){ 
     this.services.assignNewBatch(this.assignBatchModel.value).subscribe({
       next: (response) => {
         this.dialog.closeAll()
@@ -181,10 +187,14 @@ export class AssignBatchComponent implements OnInit {
         });
       },
       error: (error: HttpErrorResponse) => {
-        if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+        if(error.status==401){
           this.dialog.closeAll();
           this.services.logout();
           this.alertPopup('Error', 'Session is expired. Please Login');
+          const currentUrl = this.router.url;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+          });
         }
         else{
           this.alertPopup('Error Raised', error.error)
@@ -207,8 +217,8 @@ export class AssignBatchComponent implements OnInit {
         this.router.navigate([currentUrl]);
       });
     },
-      error: (error: HttpErrorResponse) => {
-        if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+      error: (error) => {
+        if(error.status==401){
           this.dialog.closeAll();
           this.services.logout();
           this.alertPopup('Error', 'Session is expired. Please Login');
@@ -233,5 +243,4 @@ export class AssignBatchComponent implements OnInit {
         }
       });
     }
-
 }
