@@ -101,7 +101,8 @@
         
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Batch Code</mat-label>
-          <input matInput placeholder="B. Tech II-Sem" formControlName="batch_code" type="email" name="batch_code" [readonly] = "isReadOnly">
+          <input matInput placeholder="B. Tech II-Sem" formControlName="batch_code" type="email" 
+          name="batch_code" [readonly] = "isReadOnly">
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
@@ -112,15 +113,10 @@
         <mat-form-field appearance="outline">
         <mat-label>Faculty Username</mat-label>
         <mat-select formControlName="faculty" (selectionChange)="getFacultyFullName($event)">
-            <mat-option *ngFor="let user of facultyData" [value]="user.username">
+            <mat-option *ngFor="let user of facultyData" [value]="user.user_id">
               {{user.username}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Full Name</mat-label>
-          <input matInput formControlName="faculty_full_name" name="faculty_name" readonly [value]="facultyFullName">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -146,6 +142,24 @@
         <mat-select formControlName="subject">
           <mat-option *ngFor="let subject of allSubjects" [value]="subject.subject_code">
             {{subject.subject_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Started Month</mat-label>
+        <mat-select formControlName="started_month">
+          <mat-option *ngFor="let month of allMonths" [value]="month.value">
+            {{month.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Year</mat-label>
+        <mat-select formControlName="year">
+          <mat-option *ngFor="let year of currentYear" [value]="year">
+            {{year}}
           </mat-option>
         </mat-select>
       </mat-form-field>

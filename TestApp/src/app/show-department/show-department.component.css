@@ -1,8 +1,4 @@
-table{
-    width: 100%;
-}
-
 th{
-    color: black;
-    font-size: 1.1em;
+    background-color: black;
+    color: white;
 }

@@ -24,8 +24,8 @@
     <mat-form-field appearance="outline">
       <mat-label>User Type</mat-label>
       <mat-select formControlName="user_type" name="usertype-listbox">
-        <mat-option *ngFor="let user of usersList" [value]="user.userValue">
-          {{user.users}}
+        <mat-option *ngFor="let user of sharedServices.userType" [value]="user.value">
+          {{user.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>

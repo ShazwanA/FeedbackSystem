@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import TestModel, CategoryDetails, AllUserDetails, BatchDetails,\
-                    SubjectDetails, DepartmentDetails, CourseDetails, FeedbackQuestionsData
+from .models import TestModel, CategoryDetails, AllUserDetails, \
+    SubjectDetails, DepartmentDetails, CourseDetails, FeedbackQuestionsData, BatchDetails
 
 
 class CustomSerializer(serializers.ModelSerializer):
@@ -44,14 +44,16 @@ class BatchSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = BatchDetails
         fields = (
+            'id',
             'batch_code',
             'faculty',
-            'faculty_full_name',
             'batch_time',
             'course',
             'subject',
             'department',
             'is_active',
+            'year',
+            'started_month'
         )
 
 
@@ -69,17 +71,16 @@ class UserProfileSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = AllUserDetails
         fields = [
-            'id',
+            'user_id',
             'user_type',
-            'first_name',
-            'last_name',
+            'full_name',
             'username',
             'gender',
             'date_of_birth',
             'father_name',
             'roll_no',
             'course_id',
-            'status',
+            'user_status',
 
             'joining_date',
             'qualification',
@@ -92,8 +93,8 @@ class AddNewUserSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = AllUserDetails
         fields = [
-            'first_name',
-            'last_name',
+            'user_id',
+            'full_name',
             'username',
             'password',
             'gender',
@@ -122,6 +123,7 @@ class FeedbackQuestionSerializer(CustomSerializer, serializers.ModelSerializer):
             'option_b',
             'option_c',
             'option_d',
+            'option_e',
             'is_active'
         ]
 
@@ -130,5 +132,6 @@ class AllUserNamesSerializer(CustomSerializer, serializers.ModelSerializer):
     class Meta:
         model = AllUserDetails
         fields = [
+            'id',
             'username',
         ]

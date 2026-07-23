@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddDepartmentComponent } from '../add-department/add-department.component';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { AlertPopupComponent, ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -48,8 +48,7 @@ export class ShowDepartmentComponent implements OnInit {
     'action'
   ];
   
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 
   applyFilter() {
@@ -59,9 +58,10 @@ export class ShowDepartmentComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator; 
       },
-      error: (error: HttpErrorResponse) => {
-        if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+      error: (error) => {
+        if(error.status==401){
           this.services.logout();
+          this.dialog.closeAll();
           this.alertPopup('Error', 'Session is expired. Please Login')
         }
         else{
@@ -106,7 +106,7 @@ export class ShowDepartmentComponent implements OnInit {
             this.router.navigate([currentUrl]);
           });
         },
-          error: (error: HttpErrorResponse) => {
+          error: (error) => {
             if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
               this.services.logout();
               this.alertPopup('Error', 'Session is expired. Please Login')

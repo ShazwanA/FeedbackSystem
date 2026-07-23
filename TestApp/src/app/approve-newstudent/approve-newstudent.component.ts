@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SignupComponent } from '../signup/signup.component';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { ConfirmationPopupComponent, AlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class ApproveNewstudentComponent implements OnInit {
   status=false;
   allCourses:any;
   allDepartments:any;
+  userRole: any;
    
   dataSource!: MatTableDataSource<any>;
 
@@ -33,7 +34,7 @@ export class ApproveNewstudentComponent implements OnInit {
     private dialog: MatDialog,
     public sharedService: SharedService
     ) { 
-
+    this.userRole = services.getRole()
     this.services.showApprovalRequestForStudent()
     .subscribe({
       next:(data: any)=>{
@@ -53,8 +54,7 @@ export class ApproveNewstudentComponent implements OnInit {
   }
 
   displayedColumns: string[] = [
-    'first_name',
-    'last_name', 
+    'full_name', 
     'username', 
     'gender', 
     'father_name', 
@@ -62,8 +62,8 @@ export class ApproveNewstudentComponent implements OnInit {
     'date_of_birth', 
     'course',
     'department',
+    'is_active',
     'user_status',
-    'work_status',
     'user_type', 
     'action'];
   

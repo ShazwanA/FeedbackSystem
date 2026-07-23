@@ -30,7 +30,9 @@ class ShowNewFacultyPendingRequest(APIView):
         if request.headers.get('Authorization'):
             token = request.auth.token
             if token:
-                all_pending_faculty = AllUserDetails.objects.filter(is_deleted=False, is_active=False, user_type='faculty')
+                all_pending_faculty = AllUserDetails.objects.filter(is_deleted=False,
+                                                                    is_active=False,
+                                                                    user_type='faculty')
                 return Response(AllFacultySerializer(all_pending_faculty, many=True).data)
             return HttpResponse("Request has no authorized identity", status=status.HTTP_400_BAD_REQUEST)
         return HttpResponse("User not logged in", status=status.HTTP_401_UNAUTHORIZED)
@@ -100,7 +102,7 @@ class ShowMyBatches(APIView):
     def get(self, request):
 
         try:
-            get_all_my_batches = BatchDetails.objects.get(faculty=request.user.username,
+            get_all_my_batches = BatchDetails.objects.get(faculty=request.user.user_id,
                                                           is_deleted=False, is_active=True)
             return Response(ShowMyBatchesSerializer(get_all_my_batches, many=True).data)
         except:

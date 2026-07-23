@@ -1,0 +1,8 @@
+<div class="star-container">
+
+    <mat-icon *ngFor="let star of stars"
+        [class.filled]="star <= rating">
+        star
+    </mat-icon>
+
+</div>

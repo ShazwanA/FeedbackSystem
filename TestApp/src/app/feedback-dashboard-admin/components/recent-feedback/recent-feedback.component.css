@@ -1,0 +1,15 @@
+.recent-table{
+    width:100%;
+}
+
+mat-card{
+    height:100%;
+}
+
+mat-card-title{
+    margin-bottom:20px;
+}
+
+th{
+    font-weight:600;
+}

@@ -53,23 +53,27 @@ export class AddDepartmentComponent implements OnInit {
     if(!this.editData){
 
     //add new class
-      if(!(this.addDepartmentModel.value.department_name && this.addDepartmentModel.value.department_code))
-      {
+      if(!(this.addDepartmentModel.value.department_name && 
+            this.addDepartmentModel.value.department_code))
         return;
-      }
+
 
       this.services.addDepartment(this.addDepartmentModel.value).subscribe({
-        next: (response: HttpResponse<any>) => {
+        next: (response) => {
           this.dialog.closeAll();
+          console.log(response);
           this.alertMessage('Success', response);
         },
-        error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+        error: (error) => {
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertMessage('Error', 'Session is expired. Please Login')
           }
-          else
-            this.alertMessage('Error', error.error)
+          else{
+            console.log(error.error.status, error.error.message, error.error);
+            this.alertMessage('Error is here', error.error.message)
+          }
         }
       }
       );
@@ -82,7 +86,7 @@ export class AddDepartmentComponent implements OnInit {
     console.log(this.addDepartment);
     
     this.services.updateDepartment(this.addDepartmentModel.getRawValue()).subscribe({
-        next: (response: HttpResponse<any>) => {
+        next: (response) => {
           // alert(response)
           this.dialog.closeAll();
           this.alertMessage('Success', response);
@@ -92,9 +96,10 @@ export class AddDepartmentComponent implements OnInit {
   });
           
         },
-        error: (error: HttpErrorResponse) => {
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+        error: (error) => {
+          if(error.status==401){
             this.services.logout();
+            this.dialog.closeAll();
             this.alertMessage('Error', 'Session is expired. Please Login')
           }
           else

@@ -11,6 +11,7 @@ import { SignupComponent } from '../signup/signup.component';
 import { Router } from '@angular/router';
 import { AddFeedbackQuestionComponent } from '../add-feedback-question/add-feedback-question.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -26,8 +27,7 @@ export class DashboardAdminComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   openAddNewDepartment() {
     this.dialog.open(AddDepartmentComponent, {
@@ -54,7 +54,7 @@ export class DashboardAdminComponent implements OnInit {
     this.dialog.open(SignupComponent, {
       width: '40%',
       height: '70%',
-      data: {row: userType, rquestType:'Create', message:'Create User'}
+      data: {row: userType, requestType:'Create', message:'Create User'}
     });
   }
 
@@ -85,7 +85,6 @@ export class DashboardAdminComponent implements OnInit {
 
   getUserProfile(){
     this.service.getUserProfile('admin').subscribe((response) => {
-      console.log(response);
       this.router.navigate(['user-profile'],
       {
         state: { data: response }

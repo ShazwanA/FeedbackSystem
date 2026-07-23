@@ -1,27 +1,23 @@
 <app-menu></app-menu>
+<div>
+  <h1>Student details to be approve</h1>
+</div>
 
-<h1>Student details to be approve</h1>
 
 <div class="data-container">
-
+<h1>Student details to be approve</h1>
 <mat-form-field appearance="standard">
   <mat-label>Global Search</mat-label>
   <input matInput (keyup)="applyFilter()" placeholder="Ex. MedPlus" #input [(ngModel)]="filterData">
 </mat-form-field>
 
-<div class="mat-elevation-z8" class="displaydata">
+<div class="table-container mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- First name column -->
-    <ng-container matColumnDef="first_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.first_name}} </td>
-    </ng-container>
-
-    <!-- last name Column -->
-    <ng-container matColumnDef="last_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.last_name}} </td>
+    <ng-container matColumnDef="full_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.full_name}} </td>
     </ng-container>
 
     <!-- username Column -->
@@ -32,57 +28,57 @@
 
     <!-- Gender Column -->
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
       <td mat-cell *matCellDef="let row"> {{row.gender}} </td>
     </ng-container>
 
     <!-- DOB Column -->
     <ng-container matColumnDef="date_of_birth">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </th>
+      <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
       <td mat-cell *matCellDef="let row"> {{row.date_of_birth | date:'dd-MMM-yyyy'}} </td>
     </ng-container>
 
     <!-- Father name Column -->
     <ng-container matColumnDef="father_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Father Name </th>
+      <th mat-header-cell *matHeaderCellDef> Father Name </th>
       <td mat-cell *matCellDef="let row"> {{row.father_name}} </td>
     </ng-container>
 
     <!-- Roll Number Column -->
     <ng-container matColumnDef="roll_no">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Roll No </th>
+      <th mat-header-cell *matHeaderCellDef> Roll No </th>
       <td mat-cell *matCellDef="let row"> {{row.roll_no}} </td>
     </ng-container>
 
     <!-- Course code Column -->
     <ng-container matColumnDef="course">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Course </th>
+      <th mat-header-cell *matHeaderCellDef> Course </th>
       <td mat-cell *matCellDef="let row">
         <a href="javascript:void(0)" (click)="getCourseDetails(row)"> {{row.course}} </a></td>
     </ng-container>
 
     <!-- Depatment code Column -->
     <ng-container matColumnDef="department">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+      <th mat-header-cell *matHeaderCellDef> Department </th>
       <td mat-cell *matCellDef="let row">
         <a href="javascript:void(0)" (click)="getDepartmentDetails(row)"> {{row.department}} </a></td>
     </ng-container>
 
     <!-- Class code Column -->
-    <ng-container matColumnDef="user_status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> User Status </th>
+    <ng-container matColumnDef="is_active">
+      <th mat-header-cell *matHeaderCellDef> User Status </th>
       <td mat-cell *matCellDef="let row"> {{sharedService.status[0][row.is_active?'active':'inactive']}} </td>
     </ng-container>
 
     <!-- Class code Column -->
-    <ng-container matColumnDef="work_status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Status </th>
-      <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+    <ng-container matColumnDef="user_status">
+      <th mat-header-cell *matHeaderCellDef> Work Status </th>
+      <td mat-cell *matCellDef="let row"> {{row.user_status}} </td>
     </ng-container>
 
     <!-- User type Column -->
     <ng-container matColumnDef="user_type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> User Type </th>
+      <th mat-header-cell *matHeaderCellDef> User Type </th>
       <td mat-cell *matCellDef="let row"> {{row.user_type}} </td>
     </ng-container>
 
@@ -91,7 +87,9 @@
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let row" class="no-wrap">
         
-        <button class="green-btn" mat-raised-button (click)="proceed('Approve', 'Approve Student', 'Are you sure you want to Approve?', row.username)">
+        <button class="green-btn" mat-raised-button
+        (click)="proceed('Approve', 'Approve Student', 'Are you sure you want to Approve?', row.username)"
+        *ngIf="userRole==='admin'">
           <mat-icon>edit</mat-icon>
           Approve
         </button>
@@ -115,9 +113,8 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
-
-  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
 
 

@@ -101,15 +101,15 @@ class SubjectDetails(CustomBaseModel):
 
 
 class BatchDetails(CustomBaseModel):
-    batch_code = models.CharField(max_length=10, primary_key=True)
-    batch_time = models.CharField(max_length=60)
-    faculty = models.CharField(blank=False, max_length=35)
-    faculty_full_name = models.CharField(max_length=35, null=True)
-    department = models.ForeignKey(DepartmentDetails, max_length=6, on_delete=models.CASCADE)
-    course = models.ForeignKey(CourseDetails, max_length=6, on_delete=models.CASCADE)
-    subject = models.ForeignKey(SubjectDetails, max_length=6, on_delete=models.CASCADE)
+    batch_code = models.CharField(max_length=10, unique=True, null=False, blank=False)
+    batch_time = models.CharField(max_length=60, null=True)
+    faculty = models.ForeignKey(AllUserDetails, max_length=10, null=True, on_delete=models.CASCADE)
+    department = models.ForeignKey(DepartmentDetails, max_length=6, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(CourseDetails, max_length=6, null=True, on_delete=models.CASCADE)
+    subject = models.ForeignKey(SubjectDetails, max_length=6, null=True, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
-    year = models.IntegerField(default=date.today().year)
+    started_month = models.IntegerField(null=False)
+    year = models.IntegerField(default=date.today().year, null=True)
     created_by = models.CharField(max_length=10, null=True)
 
     class Meta:
@@ -124,6 +124,7 @@ class FeedbackQuestionsData(CustomBaseModel):
     option_b = models.CharField(max_length=100)
     option_c = models.CharField(max_length=100)
     option_d = models.CharField(max_length=100)
+    option_e = models.CharField(max_length=100)
     is_active = models.BooleanField(default=False)
     created_by = models.CharField(max_length=10, null=True)
 
@@ -133,9 +134,11 @@ class FeedbackQuestionsData(CustomBaseModel):
 
 
 class FeedbackByStudent(CustomBaseModel):
-    faculty = models.CharField(max_length=35)
-    student = models.CharField(max_length=35)
-    month = models.CharField(max_length=12)
+    faculty = models.ForeignKey(AllUserDetails, max_length=10, null=True, on_delete=models.CASCADE,
+                                related_name='faculty')
+    student = models.ForeignKey(AllUserDetails, max_length=10, null=True, on_delete=models.CASCADE,
+                                related_name='student')
+    month = models.IntegerField()
     year = models.IntegerField()
     feedback_submitted_on = models.DateField()
     question = models.ForeignKey(FeedbackQuestionsData, on_delete=models.CASCADE)

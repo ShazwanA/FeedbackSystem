@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddDepartmentComponent } from '../add-department/add-department.component';
 import { AddSubjectComponent } from '../add-subject/add-subject.component';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Router } from '@angular/router';

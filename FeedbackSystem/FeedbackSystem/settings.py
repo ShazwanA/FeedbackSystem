@@ -29,7 +29,7 @@ SECRET_KEY = 'u&h!!_l3v9sf5emj&#p1*4m7l@l$r#(a*&5c$m@0zf@48fx(ov'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'Admin',
     'Faculty',
     'Student',
+    'Common',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,10 +67,12 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
+    'http://10.106.193.194:4200'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200",
+
 ]
 
 CORS_ALLOW_METHODS = [
@@ -128,7 +131,7 @@ DATABASES = {
         'NAME': 'FeedbackSystem',
         'USER': 'shaz',
         'PASSWORD': 'shaz',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.2',
         'PORT': 3306
     }
 }
@@ -187,7 +190,10 @@ AUTHENTICATION_BACKENDS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    "DEFAULT_PAGINATION_CLASS":
+        "Common.utils.pagination.DefaultPagination",
+    "PAGE_SIZE": 10,
 }
 
 

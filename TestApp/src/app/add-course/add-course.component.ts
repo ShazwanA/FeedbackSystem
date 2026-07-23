@@ -69,8 +69,8 @@ export class AddCourseComponent implements OnInit {
 
       this.services.addCourse(this.addCourseModel.value).subscribe({
         next: (response: HttpResponse<any>) => {
-          alert(response)
           this.dialog.closeAll();
+          this.alertMessage('Success', response)
         },
         error: (error: HttpErrorResponse) => {
           console.log('Error status code:', error.status);     // ❌ For failed responses (e.g., 400, 500)
@@ -92,12 +92,7 @@ export class AddCourseComponent implements OnInit {
       next: (response: HttpResponse<any>) => {
         // alert(response)
         this.dialog.closeAll();
-        this.alertMessage('Success', response);
-        const currentUrl = this.router.url;
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-        });
-        
+        this.alertMessage('Success', response);        
       },
       error: (error: HttpErrorResponse) => {
         if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){

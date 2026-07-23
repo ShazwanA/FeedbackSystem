@@ -21,20 +21,15 @@
         <mat-form-field appearance="outline">
           <mat-label>User Type</mat-label>
           <mat-select formControlName="user_type">
-            <mat-option *ngFor="let user of sharedService.userType" [value]="user.value">
+            <mat-option *ngFor="let user of allUsers" [value]="user.value">
               {{user.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         
         <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>First Name</mat-label>
-            <input matInput placeholder="Ron" formControlName="first_name">
-          </mat-form-field>
-
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Last Name</mat-label>
-            <input matInput placeholder="Weasly" formControlName="last_name">
+            <mat-label>Full Name</mat-label>
+            <input matInput placeholder="Ron" formControlName="full_name">
           </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
@@ -125,7 +120,7 @@
           <img [src]="image" [width]="imageWidth" [height]="imageHeight">
           <br><br><br> -->
 
-          <mat-checkbox formControlName="is_active" *ngIf="isStaff">Activate user</mat-checkbox>
+          <mat-checkbox formControlName="is_active" *ngIf="isAdmin=='admin'">Activate user</mat-checkbox>
         </form>
       </div>
       <div class="footer-container">

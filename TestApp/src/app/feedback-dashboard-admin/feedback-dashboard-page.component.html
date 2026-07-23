@@ -1,0 +1,74 @@
+<app-menu></app-menu>
+
+<div>
+    <h2>Heading Here</h2>
+</div>
+
+<div class="dashboard-container">
+
+    <h2 class="dashboard-title">
+        Admin Dashboard
+    </h2>
+
+<ng-container *ngIf="!summaryError; else errorTemplate">
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+        <app-stat-card
+            *ngFor="let card of dashboardData.summary"
+            [card]="card">
+        </app-stat-card>
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-grid">
+
+        <app-feedback-trend
+            [feedbackTrend]="feedbackTrend">
+        </app-feedback-trend>
+
+        <app-department-performance
+            [departmentPerformance]="departmentPerformance">
+        </app-department-performance>
+
+    </div>
+
+    <!-- Recent Feedback + Top Faculty + Today Summary + Quick Actions -->
+    <div class="bottom-grid">
+
+        <app-recent-feedback
+            [recentFeedback]="recentFeedback">
+        </app-recent-feedback>
+
+        <app-top-faculty
+            [topFaculty]="topFaculty">
+        </app-top-faculty>
+
+        <app-today-summary
+            [todaySummaryData]="todaySummary">
+        </app-today-summary>
+
+        <app-quick-actions>
+        </app-quick-actions>
+
+    </div>
+
+    <!-- Feedback Distribution -->
+    <div class="distribution-grid">
+
+        <app-feedback-distribution
+            [feedbackDistributionData]="feedbackDistribution">
+        </app-feedback-distribution>
+
+    </div>
+
+    </ng-container>
+
+<!-- error state template for summary error -->
+<ng-template #errorTemplate>
+    <app-error-state
+        title="Dashboard Unavailable"
+        message="Unable to load dashboard summary."
+        (retry)="getAdminDashboardData()">
+    </app-error-state>
+</ng-template>
+</div>

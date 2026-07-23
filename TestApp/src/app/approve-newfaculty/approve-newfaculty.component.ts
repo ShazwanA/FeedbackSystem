@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServicesService } from '../services/services.service';
 import { SignupComponent } from '../signup/signup.component';
-import { SharedService } from '../services/shared.service';
+import { SharedService } from '../shared/shared.service';
 import { AlertPopupComponent, ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,6 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ApproveNewfacultyComponent implements OnInit {
   allfaculty: any;
   allDepartments:any;
+  dataLength: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -33,14 +34,13 @@ export class ApproveNewfacultyComponent implements OnInit {
       this.allfaculty = new MatTableDataSource(data);
       this.allfaculty.paginator = this.paginator;
       this.allfaculty.sort = this.sort;
-      // console.log(this.allfaculty)
+      this.dataLength=this.allfaculty.data.length;
     }
   });
   }
   displayedColumns: string[] = [
-    'first_name',
-    'last_name',
-    'facul_username',
+    'full_name',
+    'username',
     'gender',
     'date_of_birth',
     'department',
@@ -49,7 +49,7 @@ export class ApproveNewfacultyComponent implements OnInit {
     'experience',
     'user_type',
     'is_active',
-    'status',
+    'user_status',
     'action'
   ];
   ngOnInit(): void { }
@@ -72,7 +72,7 @@ export class ApproveNewfacultyComponent implements OnInit {
       },
         error: (error: HttpErrorResponse) => {
           
-          if(error.status==401 && error.error['detail'] === 'Given token not valid for any token type'){
+          if(error.status==401){
             this.services.logout();
             this.alertPopup('Error', 'Session is expired. Please Login');
           }
@@ -97,7 +97,6 @@ export class ApproveNewfacultyComponent implements OnInit {
   }
 
   editFacultyDetails(row: any){
-    console.log(row);
     
     this.dialog.open(SignupComponent, {
       width: '40%',

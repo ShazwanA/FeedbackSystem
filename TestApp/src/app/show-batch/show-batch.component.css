@@ -1,7 +1,9 @@
-table{
-    width: 1000px;
-}
 
 th{
-    color: black;
+    background-color: black;
+    color: white;
+}
+
+.filter{
+    width: 15em;
 }

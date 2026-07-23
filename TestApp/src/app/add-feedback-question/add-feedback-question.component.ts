@@ -32,6 +32,7 @@ export class AddFeedbackQuestionComponent implements OnInit {
     option_b: ['', Validators.required],
     option_c: ['', Validators.required],
     option_d: ['', Validators.required],
+    option_e: ['', Validators.required],
     is_active: [false]
   }
   ) as FormGroup;
@@ -45,6 +46,7 @@ export class AddFeedbackQuestionComponent implements OnInit {
       this.addQuestionModel.controls['option_b'].setValue(this.editData.option_b);
       this.addQuestionModel.controls['option_c'].setValue(this.editData.option_c);
       this.addQuestionModel.controls['option_d'].setValue(this.editData.option_d);
+      this.addQuestionModel.controls['option_e'].setValue(this.editData.option_e);
       this.addQuestionModel.controls['is_active'].setValue(this.editData.is_active);
       this.addQuestionModel.addControl('id', new FormControl(this.editData.id, Validators.required));
     }
